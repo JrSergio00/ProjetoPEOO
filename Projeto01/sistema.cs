@@ -61,7 +61,7 @@ class Sistema{
         if (y != null){
             y.SetModelo(x.GetModelo());
             y.SetAno(x.GetAno());
-            y.SetCategoria(x.GetCategoria());
+            y.SetPlaca(x.GetPlaca());
             y.SetCor(x.GetCor());
             y.SetChassi(x.GetChassi());
             y.SetIdFabricante(x.GetIdFabricante());

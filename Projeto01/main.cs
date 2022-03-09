@@ -106,9 +106,9 @@ class Program{
         Console.Write("Cor: ");
         string cor = Console.ReadLine();
 
-        Console.WriteLine("Informe a categoria do veículo");
-        Console.Write("Categoria: ");
-        string categoria = Console.ReadLine();
+        Console.WriteLine("Informe a placa do veículo");
+        Console.Write("Placa: ");
+        string placa = Console.ReadLine();
 
         Console.WriteLine("Informe o modelo do veículo");
         Console.Write("Cor: ");
@@ -118,7 +118,7 @@ class Program{
         Console.Write("Id do fabricante: ");
         int idFabricante = int.Parse(Console.ReadLine());
 
-        Veiculo x = new Veiculo(id, chassi, anoFabricacao,cor, categoria, modelo, idFabricante);
+        Veiculo x = new Veiculo(id, chassi, anoFabricacao, cor, placa, modelo, idFabricante);
         Sistema.InserirVeiculo(x);
         Console.WriteLine("----- Veículo adicionado ao sistema -----");
         Console.WriteLine();
@@ -148,9 +148,9 @@ class Program{
         Console.Write("Cor: ");
         string cor = Console.ReadLine();
 
-        Console.WriteLine("Informe a nova categoria do veículo");
-        Console.Write("Categoria: ");
-        string categoria = Console.ReadLine();
+        Console.WriteLine("Informe a nova placa do veículo");
+        Console.Write("Placa: ");
+        string placa = Console.ReadLine();
 
         Console.WriteLine("Informe o novo modelo do veículo");
         Console.Write("Cor: ");
@@ -160,7 +160,7 @@ class Program{
         Console.Write("Id do fabricante: ");
         int idFabricante = int.Parse(Console.ReadLine());
 
-        Veiculo x = new Veiculo(id, chassi, anoFabricacao,cor, categoria, modelo, idFabricante);
+        Veiculo x = new Veiculo(id, chassi, anoFabricacao, cor, placa, modelo, idFabricante);
         Sistema.AtualizarVeiculo(x);
         Console.WriteLine("----- Veículo atualizado no sistema -----");
         Console.WriteLine();

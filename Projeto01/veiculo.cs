@@ -5,15 +5,15 @@ class Veiculo {
     private int chassi;
     private DateTime AnoFabricacao;
     private string cor;
-    private string categoria;
+    private string placa;
     private string modelo;
     private int idFabricante;
-    public Veiculo(int id, int chassi, DateTime AnoFabricacao, string cor, string categoria, string modelo, int idFabricante){
+    public Veiculo(int id, int chassi, DateTime AnoFabricacao, string cor, string placa, string modelo, int idFabricante){
         this.id = id;
         this.chassi = chassi;
         this.AnoFabricacao = AnoFabricacao;
         this.cor = cor;
-        this.categoria = categoria;
+        this.placa = placa;
         this.modelo = modelo;
         this.idFabricante = idFabricante;
     }
@@ -45,11 +45,11 @@ class Veiculo {
     public string GetCor(){
         return cor;
     }
-    public void SetCategoria(string categoria){
-        this.categoria = categoria;
+    public void SetPlaca(string placa){
+        this.placa = placa;
     }
-    public string GetCategoria(){
-        return categoria;
+    public string GetPlaca(){
+        return placa;
     }
     public void SetModelo(string modelo){
         this.modelo = modelo;
@@ -66,7 +66,7 @@ class Veiculo {
     
     public override string ToString()
     {
-        return $"{id:00} - {modelo} - {AnoFabricacao:dd/MM/yyyy} - {categoria} - {cor} - Chassi: {chassi}";
+        return $"{id:00} -Fabricante: {idFabricante}- {modelo} - {AnoFabricacao:dd/MM/yyyy} - {placa} - {cor} - Chassi: {chassi}";
     }
 
 }
