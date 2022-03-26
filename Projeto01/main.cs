@@ -138,6 +138,7 @@ class Program{
         Console.WriteLine();
         Console.Write("Id do fabricante: ");
         int idFabricante = int.Parse(Console.ReadLine());
+
         Console.WriteLine("Informe o id do propietário");
         Console.WriteLine();
         foreach(Proprietario z in Sistema.ListarProprietarios())
@@ -152,8 +153,11 @@ class Program{
     }
     public static void ListarVeiculos(){
         Console.WriteLine("----- Listar veículos do sistema -----");
-        foreach(Veiculo x in Sistema.ListarVeiculos())
-            Console.WriteLine(x);
+        foreach(Veiculo x in Sistema.ListarVeiculos()){
+            Fabricante f = Sistema.ListarFabricante(x.GetIdFabricante());
+            Proprietario p = Sistema.ListarProprietarios(x.GetIdProprietario());
+            Console.WriteLine($"{x} - {f.GetNome()} - {p.Nome}");
+        }
         Console.WriteLine("-----------------------------------------");
         Console.WriteLine();
     }

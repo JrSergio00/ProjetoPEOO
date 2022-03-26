@@ -74,7 +74,7 @@ class Veiculo {
     
     public override string ToString()
     {
-        return $"{id:00} - {modelo} - {cor} - {AnoFabricacao} - {placa} - Chassi: {chassi} - Propietário: {idProprietario} - Fabricante: {idFabricante} ";
+        return $"{id:00} - {modelo} - {cor} - {AnoFabricacao} - {placa} - Chassi: {chassi}";
     }
 
 }
