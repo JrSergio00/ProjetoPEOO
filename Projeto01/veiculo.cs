@@ -3,12 +3,13 @@ using System;
 class Veiculo {
     private int id;
     private int chassi;
-    private DateTime AnoFabricacao;
+    private int AnoFabricacao;
     private string cor;
     private string placa;
     private string modelo;
     private int idFabricante;
-    public Veiculo(int id, int chassi, DateTime AnoFabricacao, string cor, string placa, string modelo, int idFabricante){
+    private int idProprietario;
+    public Veiculo(int id, int chassi, int AnoFabricacao, string cor, string placa, string modelo, int idFabricante, int idProprietario){
         this.id = id;
         this.chassi = chassi;
         this.AnoFabricacao = AnoFabricacao;
@@ -16,6 +17,7 @@ class Veiculo {
         this.placa = placa;
         this.modelo = modelo;
         this.idFabricante = idFabricante;
+        this.idProprietario = idProprietario;
     }
     public Veiculo(int id){
         this.id = id;
@@ -33,10 +35,10 @@ class Veiculo {
     public int GetChassi(){
         return chassi;
     }
-    public void SetAno(DateTime AnoFabricacao){
+    public void SetAno(int AnoFabricacao){
         this.AnoFabricacao = AnoFabricacao;
     }
-    public DateTime GetAno(){
+    public int GetAno(){
         return AnoFabricacao;
     }
     public void SetCor(string cor){
@@ -63,10 +65,16 @@ class Veiculo {
     public int GetIdFabricante(){
         return idFabricante;
     }
+    public void SetIdProprietario(int idProprietario){
+        this.idProprietario = idProprietario;
+    }
+    public int GetIdProprietario(){
+        return idProprietario;
+    }
     
     public override string ToString()
     {
-        return $"{id:00} -Fabricante: {idFabricante}- {modelo} - {AnoFabricacao:dd/MM/yyyy} - {placa} - {cor} - Chassi: {chassi}";
+        return $"{id:00} - {modelo} - {cor} - {AnoFabricacao} - {placa} - Chassi: {chassi} - Propietário: {idProprietario} - Fabricante: {idFabricante} ";
     }
 
 }

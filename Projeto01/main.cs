@@ -15,6 +15,10 @@ class Program{
                     case 6 : ListarVeiculos(); break;
                     case 7 : AtualizarVeiculo(); break;
                     case 8 : ExcluirVeiculo(); break;
+                    case 9 : InserirProprietario(); break;
+                    case 10 : ListarProprietarios(); break;
+                    case 11 : AtualizarProprietario(); break;
+                    case 12 : ExcluirProprietario(); break;
                 }
             }
             catch (Exception erro) {
@@ -24,17 +28,26 @@ class Program{
         }while(op != 0);
     }
     public static int Menu(){
-        Console.WriteLine("------------ Escolha uma opção ------------");
-        Console.WriteLine("01 - Inserir um novo fabricante");
-        Console.WriteLine("02 - Listar os fabricantes cadastrados");
-        Console.WriteLine("03 - Atualizar um fabricante cadastrado");
-        Console.WriteLine("04 - Excluir um fabricante do sistema");
-        Console.WriteLine("05 - Inserir um novo veículo");
-        Console.WriteLine("06 - Listar os veículos cadastrados");
-        Console.WriteLine("07 - Atualizar um veículo cadastrado");
-        Console.WriteLine("08 - Excluir um veículo do sistema");
-        Console.WriteLine("00 - Finalizar o sistema");
-        Console.WriteLine("---------- Digite a opção desejada ----------");
+        Console.WriteLine("============ Escolha uma opção ============");
+        Console.WriteLine(" ");
+        Console.WriteLine("------------ Fabricante ------------");
+        Console.WriteLine("01) Inserir um novo fabricante");
+        Console.WriteLine("02) Listar os fabricantes cadastrados");
+        Console.WriteLine("03) Atualizar um fabricante cadastrado");
+        Console.WriteLine("04) Excluir um fabricante do sistema");
+        Console.WriteLine("------------ Veículo ---------------");
+        Console.WriteLine("05) Inserir um novo veículo");
+        Console.WriteLine("06) Listar os veículos cadastrados");
+        Console.WriteLine("07) Atualizar um veículo cadastrado");
+        Console.WriteLine("08) Excluir um veículo do sistema");
+        Console.WriteLine("------------ Proprietário ------------");
+        Console.WriteLine("09) Inserir um novo proprietário");
+        Console.WriteLine("10) Listar os proprietários cadastrados");
+        Console.WriteLine("11) Atualizar um proprietário cadastrado");
+        Console.WriteLine("12) Excluir um proprietário do sistema");
+        Console.WriteLine("------------ Finalizar ------------");
+        Console.WriteLine("00) Finalizar o sistema");
+        Console.WriteLine("========== Digite a opção desejada ==========");
         Console.Write("Opção: ");
         int op = int.Parse(Console.ReadLine());
         Console.WriteLine();
@@ -75,6 +88,10 @@ class Program{
     }
     public static void ExcluirFabricante(){
         Console.WriteLine("----- Excluir um fabricante do sistema -----");
+
+        foreach(Fabricante y in Sistema.ListarFabricante())
+            Console.WriteLine(y);
+        
         Console.WriteLine("Informe o id do fabricante que será excluído");
         Console.Write("Id: ");
         string nome = "";
@@ -100,7 +117,7 @@ class Program{
 
         Console.WriteLine("Informe o ano de fabricação do veículo");
         Console.Write("Ano de fabricação: ");
-        DateTime anoFabricacao = DateTime.Parse(Console.ReadLine());
+        int anoFabricacao = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Informe a cor do veículo");
         Console.Write("Cor: ");
@@ -115,10 +132,20 @@ class Program{
         string modelo = Console.ReadLine();
 
         Console.WriteLine("Informe o id do fabricante");
+        Console.WriteLine();
+        foreach(Fabricante y in Sistema.ListarFabricante())
+            Console.WriteLine(y);
+        Console.WriteLine();
         Console.Write("Id do fabricante: ");
         int idFabricante = int.Parse(Console.ReadLine());
+        Console.WriteLine("Informe o id do propietário");
+        Console.WriteLine();
+        foreach(Proprietario z in Sistema.ListarProprietarios())
+            Console.WriteLine(z);
+        Console.Write("Id do proprietário: ");
+        int idProprietario = int.Parse(Console.ReadLine());
 
-        Veiculo x = new Veiculo(id, chassi, anoFabricacao, cor, placa, modelo, idFabricante);
+        Veiculo x = new Veiculo(id, chassi, anoFabricacao, cor, placa, modelo, idFabricante, idProprietario);
         Sistema.InserirVeiculo(x);
         Console.WriteLine("----- Veículo adicionado ao sistema -----");
         Console.WriteLine();
@@ -133,6 +160,10 @@ class Program{
     public static void AtualizarVeiculo(){
         Console.WriteLine("--- Atualizar um veículo cadastrado ---");
         Console.WriteLine("Informe o id do veículo que será atualizado");
+        Console.WriteLine();
+        foreach(Veiculo y in Sistema.ListarVeiculos())
+            Console.WriteLine(y);
+        Console.WriteLine(); 
         Console.Write("Id: ");
         int id = int.Parse(Console.ReadLine());
 
@@ -142,7 +173,7 @@ class Program{
 
         Console.WriteLine("Informe o novo ano de fabricação do veículo");
         Console.Write("Ano de fabricação: ");
-        DateTime anoFabricacao = DateTime.Parse(Console.ReadLine());
+        int anoFabricacao = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Informe a nova cor do veículo");
         Console.Write("Cor: ");
@@ -156,23 +187,103 @@ class Program{
         Console.Write("Cor: ");
         string modelo = Console.ReadLine();
 
-        Console.WriteLine("Informe o novo id do fabricante");
+        Console.WriteLine("Informe o id do fabricante");
+        Console.WriteLine();
+        foreach(Fabricante y in Sistema.ListarFabricante())
+            Console.WriteLine(y);
+        Console.WriteLine();
         Console.Write("Id do fabricante: ");
         int idFabricante = int.Parse(Console.ReadLine());
 
-        Veiculo x = new Veiculo(id, chassi, anoFabricacao, cor, placa, modelo, idFabricante);
+        Console.WriteLine("Informe o id do propietário");
+        Console.WriteLine();
+        foreach(Proprietario z in Sistema.ListarProprietarios())
+            Console.WriteLine(z);
+        Console.WriteLine();
+        Console.Write("Id do proprietario: ");
+        int idProprietario = int.Parse(Console.ReadLine());
+
+        Veiculo x = new Veiculo(id, chassi, anoFabricacao, cor, placa, modelo, idFabricante, idProprietario);
         Sistema.AtualizarVeiculo(x);
         Console.WriteLine("----- Veículo atualizado no sistema -----");
         Console.WriteLine();
     }
     public static void ExcluirVeiculo(){
         Console.WriteLine("----- Excluir um veículo do sistema -----");
+
         Console.WriteLine("Informe o id do veículo que será excluído");
+        foreach(Veiculo y in Sistema.ListarVeiculos())
+            Console.WriteLine(y);
+        Console.WriteLine();
+
         Console.Write("Id: ");
         int id = int.Parse(Console.ReadLine());
         Veiculo x = new Veiculo(id);
         Sistema.ExcluirVeiculo(x);
         Console.WriteLine("----- Veículo excluido do sistema -----");
+        Console.WriteLine();
+    }
+
+    //Propietario
+
+    public static void InserirProprietario(){
+
+        Console.WriteLine("----- Inserir um proprietário no sistema -----");
+        Console.WriteLine("Informe o nome do proprietário");
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
+
+        Console.WriteLine("Informe o cpf do proprietário (apenas números)");
+        Console.Write("Cpf: ");
+        string cpf = Console.ReadLine();
+
+        Proprietario x = new Proprietario{Nome = nome, Cpf = cpf};
+        Sistema.InserirProprietario(x);
+        Console.WriteLine("----- Proprietário adicionado ao sistema -----");
+        Console.WriteLine();
+    }
+    public static void ListarProprietarios(){
+        Console.WriteLine("----- Listar proprietários do sistema -----");
+        foreach(Proprietario x in Sistema.ListarProprietarios())
+            Console.WriteLine(x);
+        Console.WriteLine("-----------------------------------------");
+        Console.WriteLine();
+    }
+    public static void AtualizarProprietario(){
+        Console.WriteLine("--- Atualizar um proprietário cadastrado ---");
+        Console.WriteLine("Informe o id do proprietário que será atualizado");
+        foreach(Proprietario y in Sistema.ListarProprietarios())
+            Console.WriteLine(y);
+        Console.WriteLine();
+
+        Console.Write("Id: ");
+        int id = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Informe novo nome do proprietário");
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
+
+        Console.WriteLine("Informe o novo cpf do proprietário");
+        Console.Write("Cpf: ");
+        string cpf = Console.ReadLine();
+
+        Proprietario x = new Proprietario{Id = id ,Nome = nome, Cpf = cpf};
+        Sistema.AtualizarProprietario(x);
+        Console.WriteLine("----- Proprietário atualizado no sistema -----");
+        Console.WriteLine();
+    }
+    public static void ExcluirProprietario(){
+        Console.WriteLine("----- Excluir um proprietário do sistema -----");
+        Console.WriteLine("Informe o id do proprietário que será excluído");
+        foreach(Proprietario y in Sistema.ListarProprietarios())
+            Console.WriteLine(y);
+        Console.WriteLine();
+        Console.Write("Id: ");
+        int id = int.Parse(Console.ReadLine());
+
+        Proprietario x = new Proprietario{Id = id};
+        Sistema.ExcluirPropietario(x);
+        Console.WriteLine("----- Proprietário excluido do sistema -----");
         Console.WriteLine();
     }
 }

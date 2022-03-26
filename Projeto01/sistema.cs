@@ -5,6 +5,7 @@ class Sistema{
     private static Fabricante[] fabricantes = new Fabricante[10];
     private static int nFabricante;
     private static List<Veiculo> veiculos = new List<Veiculo>();
+    private static List<Proprietario> proprietarios = new List<Proprietario>();
     public static void InserirFabricante(Fabricante x) {
         if (nFabricante == fabricantes.Length){
             Array.Resize(ref fabricantes, 2 * fabricantes.Length);
@@ -41,14 +42,20 @@ class Sistema{
         if (x.GetId() == id) return i;
         }
         return -1;
-  }
+    }
 
     // Veiculos
-
-        public static void InserirVeiculo(Veiculo x) {
+    public static void InserirVeiculo(Veiculo x) {
         veiculos.Add(x);
     }
     public static List<Veiculo> ListarVeiculos(){
+        return veiculos;
+    }
+    public static List<Veiculo> ListarVeiculos(Proprietario proprietario){
+        List<Veiculo> z = new List<Veiculo>();
+        foreach(Veiculo x in veiculos)
+            if(x.GetIdProprietario() == proprietario.Id)
+            z.Add(x);
         return veiculos;
     }
     public static Veiculo ListarVeiculos(int id){
@@ -71,6 +78,38 @@ class Sistema{
         Veiculo y = ListarVeiculos(x.GetId());
         if (y != null){
             veiculos.Remove(y);
+        }
+    }
+
+    // Propietario
+
+    public static void InserirProprietario(Proprietario x) {
+        int id = 0;
+        foreach(Proprietario aux in proprietarios)
+            if(aux.Id > id) id = aux.Id;
+        x.Id = id + 1;
+        
+        proprietarios.Add(x);
+    }
+    public static List<Proprietario> ListarProprietarios(){
+        return proprietarios;
+    }
+    public static Proprietario ListarProprietarios(int id){
+        foreach(Proprietario x in proprietarios)
+            if (x.Id == id) return x;
+        return null;
+    }
+    public static void AtualizarProprietario(Proprietario x){
+        Proprietario y = ListarProprietarios(x.Id);
+        if (y != null){
+            y.Nome = x.Nome;
+            y.Cpf = x.Cpf;
+        }
+    }
+    public static void ExcluirPropietario(Proprietario x){
+        Proprietario y = ListarProprietarios(x.Id);
+        if (y != null){
+            proprietarios.Remove(y);
         }
     }
 }
