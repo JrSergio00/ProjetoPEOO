@@ -76,5 +76,4 @@ class Veiculo {
     {
         return $"{id:00} - {modelo} - {cor} - {AnoFabricacao} - {placa} - Chassi: {chassi}";
     }
-
 }

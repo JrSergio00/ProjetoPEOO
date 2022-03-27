@@ -19,6 +19,10 @@ class Program{
                     case 10 : ListarProprietarios(); break;
                     case 11 : AtualizarProprietario(); break;
                     case 12 : ExcluirProprietario(); break;
+                    case 13 : InserirProcesso(); break;
+                    case 14 : ListarProcessos(); break;
+                    case 15 : AtualizarProcesso(); break;
+                    case 16 : ExcluirProcesso(); break;
                 }
             }
             catch (Exception erro) {
@@ -28,7 +32,7 @@ class Program{
         }while(op != 0);
     }
     public static int Menu(){
-        Console.WriteLine("============ Escolha uma opção ============");
+        Console.WriteLine("========= Escolha uma opção =========");
         Console.WriteLine(" ");
         Console.WriteLine("------------ Fabricante ------------");
         Console.WriteLine("01) Inserir um novo fabricante");
@@ -40,11 +44,16 @@ class Program{
         Console.WriteLine("06) Listar os veículos cadastrados");
         Console.WriteLine("07) Atualizar um veículo cadastrado");
         Console.WriteLine("08) Excluir um veículo do sistema");
-        Console.WriteLine("------------ Proprietário ------------");
+        Console.WriteLine("---------- Proprietário ----------");
         Console.WriteLine("09) Inserir um novo proprietário");
         Console.WriteLine("10) Listar os proprietários cadastrados");
         Console.WriteLine("11) Atualizar um proprietário cadastrado");
         Console.WriteLine("12) Excluir um proprietário do sistema");
+        Console.WriteLine("------------ Processo ------------");
+        Console.WriteLine("13) Inserir um novo processo");
+        Console.WriteLine("14) Listar os processos cadastrados");
+        Console.WriteLine("15) Atualizar um processo cadastrado");
+        Console.WriteLine("16) Excluir um processo do sistema");
         Console.WriteLine("------------ Finalizar ------------");
         Console.WriteLine("00) Finalizar o sistema");
         Console.WriteLine("========== Digite a opção desejada ==========");
@@ -288,6 +297,77 @@ class Program{
         Proprietario x = new Proprietario{Id = id};
         Sistema.ExcluirPropietario(x);
         Console.WriteLine("----- Proprietário excluido do sistema -----");
+        Console.WriteLine();
+    }
+
+    //Processo
+
+    public static void InserirProcesso(){
+
+        Console.WriteLine("----- Inserir um processo no sistema -----");
+        Console.WriteLine("Informe a descrição do processo");
+        Console.Write("Descrição: ");
+        string descricao = Console.ReadLine();
+
+        Console.WriteLine("Informe o status do processo");
+        Console.Write("Status: ");
+        string status = Console.ReadLine();
+
+        Console.WriteLine("Informe a data de início do processo (formato xx/xx/xxxx)");
+        Console.Write("Data de início: ");
+        DateTime inicio = DateTime.Parse(Console.ReadLine());
+
+        Processo x = new Processo{Descricao = descricao,Status = status, Inicio = inicio};
+        Sistema.InserirProcesso(x);
+        Console.WriteLine("----- Processo adicionado ao sistema -----");
+        Console.WriteLine();
+    }
+    public static void ListarProcessos(){
+        Console.WriteLine("----- Listar processos do sistema -----");
+        foreach(Processo x in Sistema.ListarProcessos())
+            Console.WriteLine(x);
+        Console.WriteLine("-----------------------------------------");
+        Console.WriteLine();
+    }
+    public static void AtualizarProcesso(){
+        Console.WriteLine("--- Atualizar um processo cadastrado ---");
+        Console.WriteLine("Informe o id do processo que será atualizado");
+        foreach(Processo y in Sistema.ListarProcessos())
+            Console.WriteLine(y);
+        Console.WriteLine();
+
+        Console.Write("Id: ");
+        int id = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Informe a nova descrição do processo");
+        Console.Write("Descrição: ");
+        string descricao = Console.ReadLine();
+
+        Console.WriteLine("Informe o novo status do processo");
+        Console.Write("Status: ");
+        string status = Console.ReadLine();
+
+        Console.WriteLine("Informe a nova data de início do processo (formato xx/xx/xxxx)");
+        Console.Write("Data: ");
+        DateTime inicio = DateTime.Parse(Console.ReadLine());
+
+        Processo x = new Processo{Id = id , Status=status ,Descricao = descricao, Inicio = inicio};
+        Sistema.AtualizarProcesso(x);
+        Console.WriteLine("----- Processo atualizado no sistema -----");
+        Console.WriteLine();
+    }
+    public static void ExcluirProcesso(){
+        Console.WriteLine("----- Excluir um processo do sistema -----");
+        Console.WriteLine("Informe o id do processo que será excluído");
+        foreach(Processo y in Sistema.ListarProcessos())
+            Console.WriteLine(y);
+        Console.WriteLine();
+        Console.Write("Id: ");
+        int id = int.Parse(Console.ReadLine());
+
+        Processo x = new Processo{Id = id};
+        Sistema.ExcluirProcesso(x);
+        Console.WriteLine("----- Processo excluido do sistema -----");
         Console.WriteLine();
     }
 }

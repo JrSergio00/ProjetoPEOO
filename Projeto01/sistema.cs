@@ -6,6 +6,7 @@ class Sistema{
     private static int nFabricante;
     private static List<Veiculo> veiculos = new List<Veiculo>();
     private static List<Proprietario> proprietarios = new List<Proprietario>();
+    private static List<Processo> processos = new List<Processo>();
     public static void InserirFabricante(Fabricante x) {
         if (nFabricante == fabricantes.Length){
             Array.Resize(ref fabricantes, 2 * fabricantes.Length);
@@ -110,6 +111,39 @@ class Sistema{
         Proprietario y = ListarProprietarios(x.Id);
         if (y != null){
             proprietarios.Remove(y);
+        }
+    }
+
+    // Processo
+
+    public static void InserirProcesso(Processo x) {
+        int id = 0;
+        foreach(Processo aux in processos)
+            if(aux.Id > id) id = aux.Id;
+        x.Id = id + 1;
+        
+        processos.Add(x);
+    }
+    public static List<Processo> ListarProcessos(){
+        return processos;
+    }
+    public static Processo ListarProcessos(int id){
+        foreach(Processo x in processos)
+            if (x.Id == id) return x;
+        return null;
+    }
+    public static void AtualizarProcesso(Processo x){
+        Processo y = ListarProcessos(x.Id);
+        if (y != null){
+            y.Descricao = x.Descricao;
+            y.Status = x.Status;
+            y.Inicio = x.Inicio;
+        }
+    }
+    public static void ExcluirProcesso(Processo x){
+        Processo y = ListarProcessos(x.Id);
+        if (y != null){
+            processos.Remove(y);
         }
     }
 }
