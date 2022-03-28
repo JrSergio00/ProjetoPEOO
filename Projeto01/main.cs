@@ -1,6 +1,9 @@
 using System;
+using System.Globalization;
+using System.Threading;
 class Program{
     public static void Main(){
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-br");
         Console.WriteLine("Bem vindo ao Departamento Estadual de Trânsito - Detran RN");
         int op = 0;
         do {
@@ -23,6 +26,8 @@ class Program{
                     case 14 : ListarProcessos(); break;
                     case 15 : AtualizarProcesso(); break;
                     case 16 : ExcluirProcesso(); break;
+                    case 17 : AbrirAgenda(); break;
+                    case 18 : ConsultarAgenda(); break;
                 }
             }
             catch (Exception erro) {
@@ -54,6 +59,9 @@ class Program{
         Console.WriteLine("14) Listar os processos cadastrados");
         Console.WriteLine("15) Atualizar um processo cadastrado");
         Console.WriteLine("16) Excluir um processo do sistema");
+        Console.WriteLine("------------- Agenda -------------");
+        Console.WriteLine("17) Abrir agenda");
+        Console.WriteLine("18) Consultar agenda");
         Console.WriteLine("------------ Finalizar ------------");
         Console.WriteLine("00) Finalizar o sistema");
         Console.WriteLine("========== Digite a opção desejada ==========");
@@ -368,6 +376,29 @@ class Program{
         Processo x = new Processo{Id = id};
         Sistema.ExcluirProcesso(x);
         Console.WriteLine("----- Processo excluido do sistema -----");
+        Console.WriteLine();
+    }
+
+    //Agendamento
+
+    public static void AbrirAgenda(){
+        Console.WriteLine("----- Abrir agenda -----");
+        DateTime data = DateTime.Today;
+        Console.WriteLine("Informe o dia da agenda a ser aberto <enter para hoje>");
+        Console.Write("Dia: ");
+        string dia = Console.ReadLine();
+        if(dia != ""){
+            data = DateTime.Parse(dia);
+        }
+        Sistema.AbrirAgenda(data);
+        Console.WriteLine("----- Agenda aberta -----");
+        Console.WriteLine();
+    }
+    public static void ConsultarAgenda(){
+        Console.WriteLine("----- Consultar agenda -----");
+        foreach(Agendamento x in Sistema.ListarAgendamento())
+            Console.WriteLine(x);
+        Console.WriteLine("-----------------------------------------");
         Console.WriteLine();
     }
 }

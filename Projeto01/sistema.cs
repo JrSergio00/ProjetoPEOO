@@ -7,6 +7,7 @@ class Sistema{
     private static List<Veiculo> veiculos = new List<Veiculo>();
     private static List<Proprietario> proprietarios = new List<Proprietario>();
     private static List<Processo> processos = new List<Processo>();
+    private static List<Agendamento> agendamentos = new List<Agendamento>();
     public static void InserirFabricante(Fabricante x) {
         if (nFabricante == fabricantes.Length){
             Array.Resize(ref fabricantes, 2 * fabricantes.Length);
@@ -114,8 +115,7 @@ class Sistema{
         }
     }
 
-    // Processo
-
+    //Processo
     public static void InserirProcesso(Processo x) {
         int id = 0;
         foreach(Processo aux in processos)
@@ -144,6 +144,59 @@ class Sistema{
         Processo y = ListarProcessos(x.Id);
         if (y != null){
             processos.Remove(y);
+        }
+    }
+
+    // Agendamento
+
+    public static void InserirAgendamento(Agendamento x) {
+        int id = 0;
+        foreach(Agendamento aux in agendamentos)
+            if(aux.Id > id) id = aux.Id;
+        x.Id = id + 1;
+        
+        agendamentos.Add(x);
+    }
+    public static List<Agendamento> ListarAgendamento(){
+        return agendamentos;
+    }
+    public static Agendamento ListarAgendamento(int id){
+        foreach(Agendamento x in agendamentos)
+            if (x.Id == id) return x;
+        return null;
+    }
+
+    public static List<Agendamento> ListarAgendamento(Proprietario proprietario){
+        List<Agendamento> z = new List<Agendamento>();
+
+        foreach(Agendamento x in agendamentos)
+            if(x.idProprietario == proprietario.Id)
+            z.Add(x);
+        return z;
+    }
+
+    public static void AtualizarAgendamento(Agendamento x){
+        Agendamento y = ListarAgendamento(x.Id);
+        if (y != null){
+            y.Data = x.Data;
+            y.idProcesso = x.idProcesso;
+            y.idVeiculo = x.idVeiculo;
+            y.idProprietario = x.idProprietario;
+        }
+    }
+    public static void ExcluirAgendamento(Agendamento x){
+        Agendamento y = ListarAgendamento(x.Id);
+        if (y != null){
+            agendamentos.Remove(y);
+        }
+    }
+    public static void AbrirAgenda(DateTime Data){
+        int[] horarios = {8, 9, 10, 11, 14, 15, 16};
+        DateTime hoje = Data.Date;
+        foreach (int h in horarios){
+            TimeSpan atendimento = new TimeSpan(0, h, 0 ,0);
+            Agendamento x = new Agendamento {Data = hoje + atendimento};
+            InserirAgendamento(x);
         }
     }
 }
