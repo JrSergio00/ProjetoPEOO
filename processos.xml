@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProcesso xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Processo>
+    <Id>1</Id>
+    <IdProprietario>1</IdProprietario>
+    <Descricao>Multa por excesso de velocidade</Descricao>
+    <Status>Aguardando depoimento</Status>
+    <Inicio>2022-03-25T00:00:00</Inicio>
+  </Processo>
+</ArrayOfProcesso>

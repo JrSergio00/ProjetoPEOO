@@ -1,14 +1,48 @@
 using System;
 
-class Veiculo {
+public class Veiculo {
     private int id;
     private int chassi;
-    private int AnoFabricacao;
+    private int anoFabricacao;
     private string cor;
     private string placa;
     private string modelo;
     private int idFabricante;
     private int idProprietario;
+
+    public int Id{
+        get => id;
+        set => id = value;
+    }
+    public int Chassi{
+        get => chassi;
+        set => chassi = value;
+    }
+    public int AnoFabricacao{
+        get => anoFabricacao;
+        set => anoFabricacao = value;
+    }
+    public string Cor{
+        get => cor;
+        set => cor = value;
+    }
+    public string Placa{
+        get => placa;
+        set => placa = value;
+    }
+    public string Modelo{
+        get => modelo;
+        set => modelo = value;
+    }
+    public int IdFabricante{
+        get => idFabricante;
+        set => idFabricante = value;
+    }
+    public int IdProprietario{
+        get => idProprietario;
+        set => idProprietario = value;
+    }
+    public Veiculo(){ }
     public Veiculo(int id, int chassi, int AnoFabricacao, string cor, string placa, string modelo, int idFabricante, int idProprietario){
         this.id = id;
         this.chassi = chassi;

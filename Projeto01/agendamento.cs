@@ -1,6 +1,6 @@
 using System;
 
-class Agendamento{
+public class Agendamento{
     public int Id {
     get; 
     set;
@@ -10,10 +10,6 @@ class Agendamento{
     set;
     }
     public int idProprietario {
-    get;
-    set;
-    }
-    public int idVeiculo {
     get;
     set;
     }

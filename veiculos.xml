@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfVeiculo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Veiculo>
+    <Id>1</Id>
+    <Chassi>1245</Chassi>
+    <AnoFabricacao>2010</AnoFabricacao>
+    <Cor>Branco</Cor>
+    <Placa>owe0304</Placa>
+    <Modelo>Onix</Modelo>
+    <IdFabricante>1</IdFabricante>
+    <IdProprietario>1</IdProprietario>
+  </Veiculo>
+  <Veiculo>
+    <Id>2</Id>
+    <Chassi>8956</Chassi>
+    <AnoFabricacao>1995</AnoFabricacao>
+    <Cor>Amarelo</Cor>
+    <Placa>pjr2343</Placa>
+    <Modelo>147</Modelo>
+    <IdFabricante>2</IdFabricante>
+    <IdProprietario>2</IdProprietario>
+  </Veiculo>
+</ArrayOfVeiculo>

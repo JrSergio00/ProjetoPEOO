@@ -1,6 +1,6 @@
 using System;
 
-class Proprietario{
+public class Proprietario{
     public int Id {
     get; 
     set;
@@ -13,6 +13,8 @@ class Proprietario{
     get;
     set;
     }
+    public Proprietario(){ }
+    
     public override string ToString()
     {
         return $"{Id} - {Nome} - {Cpf}";

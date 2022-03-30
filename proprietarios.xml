@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProprietario xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Proprietario>
+    <Id>1</Id>
+    <Nome>Gilbert</Nome>
+    <Cpf>12345678910</Cpf>
+  </Proprietario>
+  <Proprietario>
+    <Id>2</Id>
+    <Nome>Sérgio</Nome>
+    <Cpf>78945612310</Cpf>
+  </Proprietario>
+</ArrayOfProprietario>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFabricante xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Fabricante>
+    <Id>1</Id>
+    <Nome>Chevrolet</Nome>
+  </Fabricante>
+  <Fabricante>
+    <Id>2</Id>
+    <Nome>Fiat</Nome>
+  </Fabricante>
+</ArrayOfFabricante>

@@ -2,32 +2,68 @@ using System;
 using System.Globalization;
 using System.Threading;
 class Program{
+
+    private static Proprietario proprietarioLogin = null;
     public static void Main(){
         Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-br");
+
+        try{
+            Sistema.AbrirArquivos();
+        }
+        catch(Exception erro){
+            Console.WriteLine(erro.Message);
+        }
+
         Console.WriteLine("Bem vindo ao Departamento Estadual de Trânsito - Detran RN");
         int op = 0;
+        int perfil = 0;
         do {
             try{
-                op = Menu();
-                switch(op){
-                    case 1 : InserirFabricante(); break;
-                    case 2 : ListarFabricante(); break;
-                    case 3 : AtualizarFabricante(); break;
-                    case 4 : ExcluirFabricante(); break;
-                    case 5 : InserirVeiculo(); break;
-                    case 6 : ListarVeiculos(); break;
-                    case 7 : AtualizarVeiculo(); break;
-                    case 8 : ExcluirVeiculo(); break;
-                    case 9 : InserirProprietario(); break;
-                    case 10 : ListarProprietarios(); break;
-                    case 11 : AtualizarProprietario(); break;
-                    case 12 : ExcluirProprietario(); break;
-                    case 13 : InserirProcesso(); break;
-                    case 14 : ListarProcessos(); break;
-                    case 15 : AtualizarProcesso(); break;
-                    case 16 : ExcluirProcesso(); break;
-                    case 17 : AbrirAgenda(); break;
-                    case 18 : ConsultarAgenda(); break;
+                if(perfil == 0){
+                    op = 0;
+                    perfil = MenuUsuario();
+                }
+                if(perfil == 1){
+                    op = MenuAdmin();
+                    switch(op){
+                        case 1 : InserirFabricante(); break;
+                        case 2 : ListarFabricante(); break;
+                        case 3 : AtualizarFabricante(); break;
+                        case 4 : ExcluirFabricante(); break;
+                        case 5 : InserirVeiculo(); break;
+                        case 6 : ListarVeiculos(); break;
+                        case 7 : AtualizarVeiculo(); break;
+                        case 8 : ExcluirVeiculo(); break;
+                        case 9 : InserirProprietario(); break;
+                        case 10 : ListarProprietarios(); break;
+                        case 11 : AtualizarProprietario(); break;
+                        case 12 : ExcluirProprietario(); break;
+                        case 13 : InserirProcesso(); break;
+                        case 14 : ListarProcessos(); break;
+                        case 15 : AtualizarProcesso(); break;
+                        case 16 : ExcluirProcesso(); break;
+                        case 17 : AbrirAgenda(); break;
+                        case 18 : ConsultarAgenda(); break;
+                        case 99 : perfil = 0; break;
+                    }
+                }
+                if(perfil == 2 && proprietarioLogin == null){
+                    op = MenuProprietarioLogin();
+                    switch(op){
+                        case 1 : ProprietarioLogin(); break;
+                        case 99 : perfil = 0; break;
+                    }
+                }
+                if( perfil == 2 && proprietarioLogin != null){
+                    op = MenuProprietarioLogout();
+                    switch(op){
+                        case 1 : ConsultarHorariosDisponiveis(); break;
+                        case 2 : AgendarAtendimento(); break;
+                        case 3 : ListarAtendimentos(); break;
+                        case 4 : ListarVeiculosProprietario(); break;
+                        case 5 : ProprietarioLogout(); break;
+                        case 99 : ProprietarioLogout(); break;
+                    }
                 }
             }
             catch (Exception erro) {
@@ -35,8 +71,117 @@ class Program{
                 Console.WriteLine("Erro "+ erro.Message);
             }
         }while(op != 0);
+
+        try{
+            Sistema.SalvarArquivos();
+        }
+        catch(Exception erro){
+            Console.WriteLine(erro.Message);
+        }
     }
-    public static int Menu(){
+    public static void ProprietarioLogin(){
+        Console.WriteLine("========= Login do proprietário =========");
+        ListarProprietarios();
+        Console.WriteLine();
+        Console.WriteLine("Informe o id do proprietário para logar no sistema");
+        Console.WriteLine("Id: ");
+        int id = int.Parse(Console.ReadLine());
+        proprietarioLogin = Sistema.ListarProprietarios(id);
+    }
+    public static void ProprietarioLogout(){
+        Console.WriteLine("========= Logout do proprietário =========");
+        Console.WriteLine();
+        proprietarioLogin = null;
+    }
+    public static void ConsultarHorariosDisponiveis(){
+        Console.WriteLine("--- Consultar horários Disponíveis ---");
+        foreach(Agendamento x in Sistema.ListarAgendamento(DateTime.Today))
+            Console.WriteLine(x);
+        Console.WriteLine("-----------------------------------------");
+    }
+
+    public static void AgendarAtendimento(){
+        Console.WriteLine("----- Agendar atendimento -----");
+        foreach(Agendamento x in Sistema.ListarAgendamento(DateTime.Today))
+            Console.WriteLine(x);
+        Console.WriteLine();
+        Console.WriteLine("Informe o id do horário para agendamento:");
+        int idAgendamento = int.Parse(Console.ReadLine());
+        Console.WriteLine();
+
+        Console.WriteLine("Agendamento referente ao processo: ");
+        foreach(Processo y in Sistema.ListarProcessos(proprietarioLogin))
+            Console.WriteLine(y);
+        Console.WriteLine("Id do processo:");
+        int idProcesso = int.Parse(Console.ReadLine());
+
+        Agendamento z = new Agendamento{Id = idAgendamento,idProprietario = proprietarioLogin.Id, idProcesso = idProcesso};
+
+        Sistema.AtualizarAgendamento(z);
+
+        Console.WriteLine("----- Horário agendado -----");
+    }
+    public static void ListarAtendimentos(){
+        Console.WriteLine("---- Listar meu atendimentos ----");
+        foreach(Agendamento x in Sistema.ListarAgendamento(proprietarioLogin))
+            Console.WriteLine(x);
+        Console.WriteLine("-----------------------------------------");
+    }
+    public static void ListarVeiculosProprietario(){
+        Console.WriteLine("---- Listar meus veículos ----");
+        foreach(Veiculo x in   Sistema.ListarVeiculos(proprietarioLogin)){
+            Fabricante f = Sistema.ListarFabricante(x.GetIdFabricante());
+            Proprietario p = Sistema.ListarProprietarios(x.GetIdProprietario());
+            Console.WriteLine($"{x} - {f.GetNome()} - {p.Nome}");
+        }
+        Console.WriteLine("-----------------------------------------");
+        Console.WriteLine();
+    }
+
+
+    public static int MenuUsuario(){
+        Console.WriteLine();
+        Console.WriteLine("========= Escolha uma opção =========");
+        Console.WriteLine("01) Entrar como administrador");
+        Console.WriteLine("02) Entrar como proprietário");
+        Console.WriteLine("00) Finalizar o sistema");
+        Console.WriteLine("====== Digite a opção desejada ======");
+        Console.Write("Opção: ");
+        int op = int.Parse(Console.ReadLine());
+        Console.WriteLine();
+        return op;
+    }
+    public static int MenuProprietarioLogin(){
+        Console.WriteLine();
+        Console.WriteLine("========= Escolha uma opção =========");
+        Console.WriteLine("01) Fazer login");
+        Console.WriteLine("99) Voltar");
+        Console.WriteLine("00) Finalizar o sistema");
+        Console.WriteLine("======= Digite a opção desejada =======");
+        Console.Write("Opção: ");
+        int op = int.Parse(Console.ReadLine());
+        Console.WriteLine();
+        return op;
+    }
+    public static int MenuProprietarioLogout(){
+        Console.WriteLine();
+        Console.WriteLine("====================================");
+        Console.WriteLine("Bem vindo (a), " + proprietarioLogin.Nome);
+        Console.WriteLine("======== Escolha uma opção =========");
+        Console.WriteLine("01) Consultar os horários disponíveis");
+        Console.WriteLine("02) Agendar atendimento");
+        Console.WriteLine("03) Listar meus atendimentos");
+        Console.WriteLine("04) Listar meus veículos");
+        Console.WriteLine("05) Logout");
+        Console.WriteLine("00) Finalizar o sistema");
+        Console.WriteLine("========== Digite a opção desejada ==========");
+        Console.Write("Opção: ");
+        int op = int.Parse(Console.ReadLine());
+        Console.WriteLine();
+        return op;
+    }
+
+    public static int MenuAdmin(){
         Console.WriteLine("========= Escolha uma opção =========");
         Console.WriteLine(" ");
         Console.WriteLine("------------ Fabricante ------------");
@@ -63,6 +208,7 @@ class Program{
         Console.WriteLine("17) Abrir agenda");
         Console.WriteLine("18) Consultar agenda");
         Console.WriteLine("------------ Finalizar ------------");
+        Console.WriteLine("99) Voltar ao menu de usuário");
         Console.WriteLine("00) Finalizar o sistema");
         Console.WriteLine("========== Digite a opção desejada ==========");
         Console.Write("Opção: ");
@@ -145,7 +291,7 @@ class Program{
         string placa = Console.ReadLine();
 
         Console.WriteLine("Informe o modelo do veículo");
-        Console.Write("Cor: ");
+        Console.Write("Modelo: ");
         string modelo = Console.ReadLine();
 
         Console.WriteLine("Informe o id do fabricante");
@@ -160,6 +306,7 @@ class Program{
         Console.WriteLine();
         foreach(Proprietario z in Sistema.ListarProprietarios())
             Console.WriteLine(z);
+        Console.WriteLine();
         Console.Write("Id do proprietário: ");
         int idProprietario = int.Parse(Console.ReadLine());
 
@@ -313,6 +460,13 @@ class Program{
     public static void InserirProcesso(){
 
         Console.WriteLine("----- Inserir um processo no sistema -----");
+        Console.WriteLine("Informe o interessado do processo");
+        foreach(Proprietario y in Sistema.ListarProprietarios())
+            Console.WriteLine(y);
+        Console.WriteLine();
+        Console.Write("Interessado: ");
+        int idProprietario = int.Parse(Console.ReadLine());
+
         Console.WriteLine("Informe a descrição do processo");
         Console.Write("Descrição: ");
         string descricao = Console.ReadLine();
@@ -325,7 +479,7 @@ class Program{
         Console.Write("Data de início: ");
         DateTime inicio = DateTime.Parse(Console.ReadLine());
 
-        Processo x = new Processo{Descricao = descricao,Status = status, Inicio = inicio};
+        Processo x = new Processo{IdProprietario = idProprietario, Descricao = descricao,Status = status, Inicio = inicio};
         Sistema.InserirProcesso(x);
         Console.WriteLine("----- Processo adicionado ao sistema -----");
         Console.WriteLine();
@@ -346,6 +500,13 @@ class Program{
 
         Console.Write("Id: ");
         int id = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Informe o novo interessado do processo");
+        foreach(Processo y in Sistema.ListarProcessos())
+            Console.WriteLine(y);
+        Console.WriteLine();
+        Console.Write("Interessado: ");
+        int idProprietario = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Informe a nova descrição do processo");
         Console.Write("Descrição: ");
@@ -396,8 +557,16 @@ class Program{
     }
     public static void ConsultarAgenda(){
         Console.WriteLine("----- Consultar agenda -----");
-        foreach(Agendamento x in Sistema.ListarAgendamento())
-            Console.WriteLine(x);
+        foreach(Agendamento x in Sistema.ListarAgendamento()){
+            Proprietario p = Sistema.ListarProprietarios(x.idProprietario);
+            Processo r = Sistema.ListarProcessos(x.idProcesso);
+            if (p != null){
+                Console.WriteLine(x + " - " + p.Nome +" - " + r.Id + " - " + r.Descricao);
+            }
+            else{
+                Console.WriteLine(x);
+            }
+        }
         Console.WriteLine("-----------------------------------------");
         Console.WriteLine();
     }

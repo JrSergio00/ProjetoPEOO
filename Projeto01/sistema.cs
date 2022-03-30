@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
+using System.Text;
 
 class Sistema{
     private static Fabricante[] fabricantes = new Fabricante[10];
@@ -132,6 +135,16 @@ class Sistema{
             if (x.Id == id) return x;
         return null;
     }
+
+    public static List<Processo> ListarProcessos(Proprietario proprietario){
+        List<Processo> z = new List<Processo>();
+        foreach(Processo x in processos)
+            if(x.IdProprietario == proprietario.Id)
+            z.Add(x);
+        return processos;
+    }
+
+
     public static void AtualizarProcesso(Processo x){
         Processo y = ListarProcessos(x.Id);
         if (y != null){
@@ -171,6 +184,13 @@ class Sistema{
 
         foreach(Agendamento x in agendamentos)
             if(x.idProprietario == proprietario.Id)
+                z.Add(x);
+        return z;
+    }
+    public static List<Agendamento> ListarAgendamento(DateTime data){
+        List<Agendamento> z = new List<Agendamento>();
+        foreach(Agendamento x in agendamentos)
+            if(x.idProprietario == 0 && x.Data.Date == data.Date)
             z.Add(x);
         return z;
     }
@@ -178,9 +198,8 @@ class Sistema{
     public static void AtualizarAgendamento(Agendamento x){
         Agendamento y = ListarAgendamento(x.Id);
         if (y != null){
-            y.Data = x.Data;
+            //y.Data = x.Data;
             y.idProcesso = x.idProcesso;
-            y.idVeiculo = x.idVeiculo;
             y.idProprietario = x.idProprietario;
         }
     }
@@ -198,5 +217,40 @@ class Sistema{
             Agendamento x = new Agendamento {Data = hoje + atendimento};
             InserirAgendamento(x);
         }
+    }
+    public static void AbrirArquivos(){
+        Arquivo<Fabricante[]> f1 = new Arquivo<Fabricante[]>();
+        fabricantes = f1.Abrir("./fabricantes.xml");
+        nFabricante = fabricantes.Length;
+
+        Arquivo<List<Veiculo>> f2 = new Arquivo<List<Veiculo>>();
+        veiculos = f2.Abrir("./veiculos.xml");
+
+        Arquivo<List<Proprietario>> f3 = new Arquivo<List<Proprietario>>();
+        proprietarios = f3.Abrir("./proprietarios.xml");
+
+        Arquivo<List<Processo>> f4 = new Arquivo<List<Processo>>();
+        processos = f4.Abrir("./processos.xml");
+
+        Arquivo<List<Agendamento>> f5 = new Arquivo<List<Agendamento>>();
+        agendamentos = f5.Abrir("./agendamentos.xml");
+
+    }
+    public static void SalvarArquivos(){
+        Arquivo<Fabricante[]> f1 = new Arquivo<Fabricante[]>{};
+        f1.Salvar("./fabricantes.xml", ListarFabricante());
+
+        Arquivo<List<Veiculo>> f2 = new Arquivo<List<Veiculo>>();
+        f2.Salvar("./veiculos.xml", veiculos);
+
+        Arquivo<List<Proprietario>> f3 = new Arquivo<List<Proprietario>>();
+        f3.Salvar("./proprietarios.xml", proprietarios);
+
+        Arquivo<List<Processo>> f4 = new Arquivo<List<Processo>>();
+        f4.Salvar("./processos.xml", processos);
+
+        Arquivo<List<Agendamento>> f5 = new Arquivo<List<Agendamento>>();
+        f5.Salvar("./agendamentos.xml", agendamentos);
+
     }
 }

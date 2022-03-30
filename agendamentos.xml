@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAgendamento xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Agendamento>
+    <Id>1</Id>
+    <Data>2022-03-30T08:00:00+00:00</Data>
+    <idProprietario>0</idProprietario>
+    <idProcesso>0</idProcesso>
+  </Agendamento>
+  <Agendamento>
+    <Id>2</Id>
+    <Data>2022-03-30T09:00:00+00:00</Data>
+    <idProprietario>2</idProprietario>
+    <idProcesso>1</idProcesso>
+  </Agendamento>
+  <Agendamento>
+    <Id>3</Id>
+    <Data>2022-03-30T10:00:00+00:00</Data>
+    <idProprietario>0</idProprietario>
+    <idProcesso>0</idProcesso>
+  </Agendamento>
+  <Agendamento>
+    <Id>4</Id>
+    <Data>2022-03-30T11:00:00+00:00</Data>
+    <idProprietario>0</idProprietario>
+    <idProcesso>0</idProcesso>
+  </Agendamento>
+  <Agendamento>
+    <Id>5</Id>
+    <Data>2022-03-30T14:00:00+00:00</Data>
+    <idProprietario>0</idProprietario>
+    <idProcesso>0</idProcesso>
+  </Agendamento>
+  <Agendamento>
+    <Id>6</Id>
+    <Data>2022-03-30T15:00:00+00:00</Data>
+    <idProprietario>0</idProprietario>
+    <idProcesso>0</idProcesso>
+  </Agendamento>
+  <Agendamento>
+    <Id>7</Id>
+    <Data>2022-03-30T16:00:00+00:00</Data>
+    <idProprietario>0</idProprietario>
+    <idProcesso>0</idProcesso>
+  </Agendamento>
+</ArrayOfAgendamento>

@@ -1,8 +1,17 @@
 using System;
 
-class Fabricante {
+public class Fabricante {
     private int id;
     private string nome;
+    public int Id{
+        get => id;
+        set =>  id = value;
+    }
+    public string Nome{
+        get => nome;
+        set =>  nome = value;
+    }
+    public Fabricante(){ }
     public Fabricante(int id, string nome){
         this.id = id;
         this.nome = nome;

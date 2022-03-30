@@ -1,7 +1,11 @@
 using System;
 
-class Processo{
+public class Processo{
     public int Id {
+    get; 
+    set;
+    }
+    public int IdProprietario {
     get; 
     set;
     }
@@ -17,8 +21,10 @@ class Processo{
     get;
     set;
     }
+    public Processo(){ }
+    
     public override string ToString()
     {
-        return $"{Id} - {Descricao} - {Status} - Inicio em: {Inicio}";
+        return $"{Id} - Referente ao proprietário: {IdProprietario} - {Descricao} - {Status} - Inicio em: {Inicio}";
     }
 }
